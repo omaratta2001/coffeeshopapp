@@ -1,5 +1,6 @@
 import 'package:coffeeshopapp/Constant.dart';
 import 'package:coffeeshopapp/Model/product_model.dart';
+import 'package:coffeeshopapp/Pages/Home/productdetails.dart';
 import 'package:coffeeshopapp/Widget/CustomApp.dart';
 import 'package:coffeeshopapp/Widget/Listnames.dart';
 import 'package:coffeeshopapp/Widget/choosetype.dart';
@@ -78,7 +79,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "", prefix: "", suffix: ""),
+      appBar: CustomAppBar(
+        ismain: true,
+        prefix: "assets/Icons/menu.svg",
+        suffix: "assets/Images/profile.avif",
+        opactiy: 0,
+      ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Padding(
@@ -178,9 +184,17 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: List.generate(productbean.length, (index) {
                     return Row(
                       children: [
-                        Choosetype(
-                          item: productbean[index],
-                          israting: false,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (BuildContext context) {
+                              return Productdetails();
+                            }));
+                          },
+                          child: Choosetype(
+                            item: productbean[index],
+                            israting: false,
+                          ),
                         ),
                         Gap(20)
                       ],

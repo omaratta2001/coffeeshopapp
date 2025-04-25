@@ -5,12 +5,14 @@ import 'package:flutter_svg/svg.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
     Key? key,
-    required this.title,
     required this.prefix,
     required this.suffix,
     this.ontap,
+    required this.ismain,
+    required this.opactiy,
   }) : super(key: key);
-  final String title;
+  final double opactiy;
+  final bool ismain;
   final String prefix;
   final String suffix;
   final Function()? ontap;
@@ -30,42 +32,69 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: 60,
-              height: 60,
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xff21262E), width: 1),
-                borderRadius: BorderRadius.circular(20),
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xff21262E).withOpacity(1),
-                    Color(0xff21262E).withOpacity(0),
-                  ],
-                  stops: [0.0, 1.0],
-                ),
-              ),
-              child: Opacity(
-                  opacity: 0.18,
-                  child: SvgPicture.asset(
-                    "assets/Icons/menu.svg",
-                  )),
-            ),
-            Container(
-              width: 60,
-              height: 60,
-              padding: EdgeInsets.all(15),
-              decoration: BoxDecoration(
+            GestureDetector(
+              onTap: ontap,
+              child: Container(
+                width: 50,
+                height: 50,
+                padding: EdgeInsets.all(15),
+                decoration: BoxDecoration(
                   border: Border.all(color: Color(0xff21262E), width: 1),
-                  borderRadius: BorderRadius.circular(20),
-                  image: DecorationImage(
-                      image: AssetImage(
-                        "assets/Images/profile.avif",
-                      ),
-                      fit: BoxFit.fill)),
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      Color(0xff21262E).withOpacity(1),
+                      Color(0xff21262E).withOpacity(opactiy),
+                    ],
+                    stops: [0.0, 1.0],
+                  ),
+                ),
+                child: Opacity(
+                    opacity: 0.18,
+                    child: SvgPicture.asset(
+                      prefix,
+                    )),
+              ),
             ),
+            ismain
+                ? Container(
+                    width: 50,
+                    height: 50,
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xff21262E), width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                            image: AssetImage(
+                              suffix,
+                            ),
+                            fit: BoxFit.fill)),
+                  )
+                : Container(
+                    width: 50,
+                    height: 50,
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xff21262E), width: 1),
+                      borderRadius: BorderRadius.circular(10),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color(0xff21262E).withOpacity(1),
+                          Color(0xff21262E).withOpacity(opactiy),
+                        ],
+                        stops: [0.0, 1.0],
+                      ),
+                    ),
+                    child: Opacity(
+                        opacity: 0.18,
+                        child: SvgPicture.asset(
+                          suffix,
+                        )),
+                  ),
           ],
         ),
       ),
