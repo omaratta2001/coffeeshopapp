@@ -1,4 +1,5 @@
 import 'package:coffeeshopapp/Pages/Home/HomeScreen.dart';
+import 'package:coffeeshopapp/Pages/NavbottomScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(Duration(milliseconds: 1500), () {
       Navigator.pushReplacement(context,
           MaterialPageRoute(builder: (BuildContext context) {
-        return HomeScreen();
+        return Navbottomscreen();
       }));
     });
     super.initState();

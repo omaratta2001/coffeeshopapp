@@ -30,45 +30,53 @@ class Choosetype extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(item.image)),
-                israting
-                    ? Positioned(
-                        right: 0,
-                        child: Container(
-                          padding: EdgeInsets.all(7),
-                          decoration: BoxDecoration(
-                            color: black.withOpacity(0.6),
-                            borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                bottomLeft: Radius.circular(20)),
+            Container(
+              width: 126,
+              height: 126,
+              child: Stack(
+                children: [
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.network(
+                        item.image,
+                        fit: BoxFit.fill,
+                        width: 126,
+                      )),
+                  israting
+                      ? Positioned(
+                          right: 0,
+                          child: Container(
+                            padding: EdgeInsets.all(7),
+                            decoration: BoxDecoration(
+                              color: black.withOpacity(0.6),
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20)),
+                            ),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SvgPicture.asset(
+                                  "assets/Icons/star.svg",
+                                  color: orange,
+                                  width: 10,
+                                ),
+                                Gap(5),
+                                Text(
+                                  item.rate,
+                                  style: TextStyle(
+                                      fontSize: texts,
+                                      color: white,
+                                      fontWeight: FontWeight.w700),
+                                )
+                              ],
+                            ),
                           ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SvgPicture.asset(
-                                "assets/Icons/star.svg",
-                                color: orange,
-                                width: 10,
-                              ),
-                              Gap(5),
-                              Text(
-                                item.rate,
-                                style: TextStyle(
-                                    fontSize: texts,
-                                    color: white,
-                                    fontWeight: FontWeight.w700),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    : Container()
-              ],
+                        )
+                      : Container()
+                ],
+              ),
             ),
             Gap(10),
             Text(

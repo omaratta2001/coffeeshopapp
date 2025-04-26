@@ -1,16 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:coffeeshopapp/Constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
-    Key? key,
+    super.key,
     required this.prefix,
     required this.suffix,
     this.ontap,
     required this.ismain,
     required this.opactiy,
-  }) : super(key: key);
+    required this.Title,
+    this.havesuffix = true,
+  });
+  final bool havesuffix;
+  final String Title;
   final double opactiy;
   final bool ismain;
   final String prefix;
@@ -58,43 +63,55 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     )),
               ),
             ),
-            ismain
-                ? Container(
-                    width: 50,
-                    height: 50,
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xff21262E), width: 1),
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                            image: AssetImage(
+            Text(
+              Title,
+              style: TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.w700, color: white),
+            ),
+            havesuffix
+                ? ismain
+                    ? Container(
+                        width: 50,
+                        height: 50,
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(color: Color(0xff21262E), width: 1),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(
+                                image: AssetImage(
+                                  suffix,
+                                ),
+                                fit: BoxFit.fill)),
+                      )
+                    : Container(
+                        width: 50,
+                        height: 50,
+                        padding: EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          border:
+                              Border.all(color: Color(0xff21262E), width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Color(0xff21262E).withOpacity(1),
+                              Color(0xff21262E).withOpacity(opactiy),
+                            ],
+                            stops: [0.0, 1.0],
+                          ),
+                        ),
+                        child: Opacity(
+                            opacity: 0.18,
+                            child: SvgPicture.asset(
                               suffix,
-                            ),
-                            fit: BoxFit.fill)),
-                  )
+                            )),
+                      )
                 : Container(
-                    width: 50,
+                    width: 40,
                     height: 50,
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff21262E), width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color(0xff21262E).withOpacity(1),
-                          Color(0xff21262E).withOpacity(opactiy),
-                        ],
-                        stops: [0.0, 1.0],
-                      ),
-                    ),
-                    child: Opacity(
-                        opacity: 0.18,
-                        child: SvgPicture.asset(
-                          suffix,
-                        )),
-                  ),
+                  )
           ],
         ),
       ),

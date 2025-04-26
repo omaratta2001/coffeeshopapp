@@ -11,28 +11,23 @@ class Sizebutton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        GestureDetector(
-          onTap: ontap,
-          child: Container(
-            width: 100,
-            height: 40,
-            decoration: BoxDecoration(
-                border: iselected ? Border.all(color: orange, width: 2) : null,
-                borderRadius: BorderRadius.circular(10),
-                color: darkgrey),
-            child: Center(
-              child: Text(name,
-                  style: TextStyle(
-                      fontSize: texts,
-                      color: !iselected ? Color(0xffAEAEAE) : orange,
-                      fontWeight: FontWeight.w700)),
-            ),
-          ),
+    return GestureDetector(
+      onTap: ontap,
+      child: Container(
+        width: 100,
+        height: 40,
+        decoration: BoxDecoration(
+            border: iselected ? Border.all(color: orange, width: 2) : null,
+            borderRadius: BorderRadius.circular(10),
+            color: darkgrey),
+        child: Center(
+          child: Text(name,
+              style: TextStyle(
+                  fontSize: texts,
+                  color: !iselected ? Color(0xffAEAEAE) : orange,
+                  fontWeight: FontWeight.w700)),
         ),
-        Gap(20),
-      ],
+      ),
     );
     ;
   }

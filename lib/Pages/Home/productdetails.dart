@@ -1,30 +1,26 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:coffeeshopapp/Widget/SizeButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
 
 import 'package:coffeeshopapp/Constant.dart';
+import 'package:coffeeshopapp/Model/product_model.dart';
 import 'package:coffeeshopapp/Widget/CustomApp.dart';
-
-class button {
-  final String name;
-  bool isselected;
-  button({required this.name, this.isselected = false});
-}
+import 'package:coffeeshopapp/Widget/SizeButton.dart';
 
 class Productdetails extends StatefulWidget {
+  final ProductModel product;
+  final List<button> size;
+  const Productdetails({
+    Key? key,
+    required this.product,
+    required this.size,
+  }) : super(key: key);
   @override
   State<Productdetails> createState() => _ProductdetailsState();
 }
 
 class _ProductdetailsState extends State<Productdetails> {
-  List<button> size = [
-    button(name: "250gm"),
-    button(name: "500gm"),
-    button(name: "1000gm"),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +33,7 @@ class _ProductdetailsState extends State<Productdetails> {
         ontap: () {
           Navigator.pop(context);
         },
+        Title: '',
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,7 +45,7 @@ class _ProductdetailsState extends State<Productdetails> {
                 height: MediaQuery.of(context).size.height / 1.7,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage("assets/Images/image1.png"),
+                        image: NetworkImage(widget.product.largeimage),
                         fit: BoxFit.fill)),
               ),
               Positioned(
@@ -76,14 +73,14 @@ class _ProductdetailsState extends State<Productdetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Robusta Beans",
+                                  widget.product.name,
                                   style: TextStyle(
                                       fontSize: textxl,
                                       color: white,
                                       fontWeight: FontWeight.w700),
                                 ),
                                 Text(
-                                  "From Africa",
+                                  widget.product.namesmall,
                                   style: TextStyle(
                                     fontSize: texts,
                                     color: white,
@@ -108,11 +105,11 @@ class _ProductdetailsState extends State<Productdetails> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
-                                          "assets/Icons/Beans.svg",
+                                          widget.product.iconbeantype,
                                           color: orange,
                                         ),
                                         Text(
-                                          "Coffe",
+                                          widget.product.type,
                                           style: TextStyle(
                                               color: grey, fontSize: textxs),
                                         )
@@ -122,8 +119,9 @@ class _ProductdetailsState extends State<Productdetails> {
                                 ),
                                 Gap(20),
                                 Container(
-                                  width: 56,
-                                  height: 60,
+                                  // width: 56,
+                                  // height: 63,
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
                                   decoration: BoxDecoration(
                                       color: Color(0xff141921),
                                       borderRadius: BorderRadius.circular(14)),
@@ -136,13 +134,13 @@ class _ProductdetailsState extends State<Productdetails> {
                                           CrossAxisAlignment.center,
                                       children: [
                                         SvgPicture.asset(
-                                          "assets/Icons/Drop.svg",
-                                          width: 25,
+                                          widget.product.iconlocationtype,
+                                          width: 24,
                                           color: orange,
                                         ),
                                         Gap(2),
                                         Text(
-                                          "Milk",
+                                          widget.product.location,
                                           style: TextStyle(
                                               color: grey, fontSize: textxs),
                                         )
@@ -166,7 +164,7 @@ class _ProductdetailsState extends State<Productdetails> {
                                 ),
                                 Gap(5),
                                 Text(
-                                  "4.5",
+                                  widget.product.rate,
                                   style: TextStyle(
                                       fontSize: textxl,
                                       color: white,
@@ -212,7 +210,7 @@ class _ProductdetailsState extends State<Productdetails> {
             height: MediaQuery.of(context).size.height / 2.5,
             padding: EdgeInsets.all(20),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -223,7 +221,7 @@ class _ProductdetailsState extends State<Productdetails> {
                       color: Color(0xffAEAEAE)),
                 ),
                 Text(
-                  "Arabica beans are by far the most popular type of coffee beans, making up about 60% of the world’s coffee. These tasty beans originated many centuries ago in the highlands of Ethiopia, and may even be the first coffee beans ever consumed! ",
+                  widget.product.Description,
                   style: TextStyle(fontSize: textl, color: white),
                 ),
                 Text(
@@ -236,35 +234,86 @@ class _ProductdetailsState extends State<Productdetails> {
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   physics: BouncingScrollPhysics(),
-                  child: Row(
-                    children: List.generate(size.length, (index) {
-                      final button item = size[index];
-                      return Sizebutton(
-                          iselected: item.isselected,
-                          name: item.name,
-                          ontap: () {
-                            setState(() {
-                              for (var s in size) {
-                                s.isselected = false;
-                              }
-                              item.isselected = true;
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: List.generate(widget.size.length, (index) {
+                        final button item = widget.size[index];
+                        return Sizebutton(
+                            iselected: item.isselected,
+                            name: item.name,
+                            ontap: () {
+                              setState(() {
+                                for (var s in widget.size) {
+                                  s.isselected = false;
+                                }
+                                item.isselected = true;
+                              });
                             });
-                          });
-                    }),
+                      }),
+                    ),
                   ),
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      children: [
-                        Text(
-                          "Price",
-                          style: TextStyle(
-                              fontSize: texts,
-                              color: Color(0xffAEAEAE),
-                              fontWeight: FontWeight.w700),
-                        )
-                      ],
+                    Container(
+                      width: 70,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Center(
+                            child: Text(
+                              "Price",
+                              style: TextStyle(
+                                fontSize: texts,
+                                color: Color(0xffAEAEAE),
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Gap(6),
+                              Text(
+                                "\$",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: orange),
+                              ),
+                              Gap(3),
+                              Text(
+                                widget.product.price,
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: white),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        width: 240,
+                        height: 60,
+                        decoration: BoxDecoration(
+                            color: orange,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Center(
+                          child: Text(
+                            "Add to Cart",
+                            style: TextStyle(
+                                fontSize: textm,
+                                color: white,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 )
