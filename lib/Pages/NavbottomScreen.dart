@@ -1,4 +1,5 @@
 import 'package:coffeeshopapp/Constant.dart';
+import 'package:coffeeshopapp/Controller/Cart/CartController.dart';
 import 'package:coffeeshopapp/Pages/Cart/CartScreen.dart';
 import 'package:coffeeshopapp/Pages/Fav/FavouriteScreen.dart';
 import 'package:coffeeshopapp/Pages/Home/HomeScreen.dart';
@@ -47,7 +48,7 @@ class _NavbottomscreenState extends State<Navbottomscreen> {
             } else if (selectedindex == 2) {
               title = "Favorites";
             } else if (selectedindex == 3) {
-              title = "Payment";
+              title = "Order History";
             }
           });
         },

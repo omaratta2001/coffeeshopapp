@@ -1,11 +1,8 @@
 import 'package:coffeeshopapp/Constant.dart';
 import 'package:coffeeshopapp/Pages/Cart/Payment.dart';
-import 'package:coffeeshopapp/Widget/Cart/Largebutton.dart';
-import 'package:coffeeshopapp/Widget/Cart/Smallbutton.dart';
+import 'package:coffeeshopapp/Controller/Provider/CartScreenProvider.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:gap/gap.dart';
+import 'package:provider/provider.dart';
 
 class Cartscreen extends StatelessWidget {
   const Cartscreen({super.key});
@@ -16,13 +13,17 @@ class Cartscreen extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: ListView(physics: BouncingScrollPhysics(), children: [
-            LargeButton(),
-            Smallbutton(),
-            LargeButton(),
-            LargeButton(),
-            Smallbutton(),
-          ]),
+          child: Consumer<Cartscreenprovider>(
+            builder: (BuildContext context, Cartscreenprovider, Widget? child) {
+              return ListView.builder(
+                itemCount: Cartscreenprovider.widgets.length,
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  return Cartscreenprovider.widgets[index];
+                },
+              );
+            },
+          ),
         ),
         Positioned(
           bottom: 0,
@@ -54,12 +55,17 @@ class Cartscreen extends StatelessWidget {
                                 color: orange,
                                 fontSize: 20),
                           ),
-                          Text(
-                            "10.40",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                color: white,
-                                fontSize: 20),
+                          Consumer<Cartscreenprovider>(
+                            builder: (BuildContext context, cartprovider,
+                                Widget? child) {
+                              return Text(
+                                cartprovider.tot.toStringAsFixed(2),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    color: white,
+                                    fontSize: 20),
+                              );
+                            },
                           )
                         ],
                       )
