@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-
 ![App Screenshot](Screenshoot/1.png)
 
 # ☕ Coffee Shop App
@@ -40,7 +37,6 @@ The **Coffee Shop App** is a modern Flutter mobile application tailored for coff
   - **OTP verification** via email during registration for extra security.
   - Secure token-based login handling via `SharedPreferences`.
 
->>>>>>> 4739442f08ee6dc2981e386330a32f6c78ccba19
 - **State Management**
   - Uses **Provider** for efficient state handling across the app.
   - Smooth state updates for cart, user session, and product details.
@@ -68,5 +64,5 @@ The **Coffee Shop App** is a modern Flutter mobile application tailored for coff
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/omaratta2001/coffee-shop-app.git
+   git clone https://github.com/omaratta2001/coffeeshopapp.git
    cd coffee-shop-app
