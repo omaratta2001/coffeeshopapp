@@ -83,7 +83,7 @@ class Homescreenprovider extends ChangeNotifier {
     _select = List.generate(Cat.length, (x) => x == false);
     _coffeeproducts = await getcoffeeproduct();
     _beansproducts = await getbeanproduct();
-    _select[0];
+    _select[0] = true;
     notifyListeners();
   }
 }

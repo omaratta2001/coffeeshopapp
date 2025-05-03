@@ -169,13 +169,16 @@ class Choosetype extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Stack(
                 children: [
-                  FadeInImage.assetNetwork(
-                    placeholder:
-                        "assets/Icons/placeholder.png", // اعمل Placeholder بسيط
-                    image: item.imageUrl,
-                    fit: BoxFit.cover,
-                    width: 126,
-                    height: 126,
+                  Hero(
+                    tag: item.name,
+                    child: FadeInImage.assetNetwork(
+                      placeholder:
+                          "assets/Icons/placeholder.png", // اعمل Placeholder بسيط
+                      image: item.imageUrl,
+                      fit: BoxFit.cover,
+                      width: 126,
+                      height: 126,
+                    ),
                   ),
                   if (israting)
                     Positioned(

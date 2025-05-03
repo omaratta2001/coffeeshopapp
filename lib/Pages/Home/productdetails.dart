@@ -26,10 +26,6 @@ class Productdetails extends StatelessWidget {
   Widget build(BuildContext context) {
     final productprovider = Provider.of<Productdetailsprovider>(context);
 
-    // Future.microtask(() {
-    //   Provider.of<Productdetailsprovider>(context, listen: false)
-    //       .initializeCounter(widget.product.id);
-    // });
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: CustomAppBar(
@@ -54,11 +50,14 @@ class Productdetails extends StatelessWidget {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height / 1.7,
-                child: FadeInImage.assetNetwork(
-                  placeholder:
-                      'assets/Icons/placeholder.png', // حط صورة placeholder عندك
-                  image: product.imageUrl,
-                  fit: BoxFit.cover,
+                child: Hero(
+                  tag: product.name,
+                  child: FadeInImage.assetNetwork(
+                    placeholder:
+                        'assets/Icons/placeholder.png', // حط صورة placeholder عندك
+                    image: product.imageUrl,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Positioned(
@@ -204,6 +203,8 @@ class Productdetails extends StatelessWidget {
                               name: item.name,
                               ontap: () {
                                 productprovider.selectbutton(size, item);
+
+                                print(product.name);
                               },
                             ),
                             Gap(25),

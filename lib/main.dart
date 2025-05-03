@@ -31,6 +31,20 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Coffe Shop App',
+      builder: (context, child) {
+        // Clamp text scale factor to prevent excessive scaling
+        final mediaQueryData = MediaQuery.of(context);
+        final clampedTextScaler = mediaQueryData.textScaler.clamp(
+          minScaleFactor: 0.9, // Minimum scale factor (usually 1.0)
+          maxScaleFactor: 0.9, // Maximum scale factor (adjust as needed)
+        );
+
+        return MediaQuery(
+          // Override textScaler with the clamped value
+          data: mediaQueryData.copyWith(textScaler: clampedTextScaler),
+          child: child!,
+        );
+      },
       theme: ThemeData(
         scaffoldBackgroundColor: black,
         textTheme: GoogleFonts.poppinsTextTheme(),

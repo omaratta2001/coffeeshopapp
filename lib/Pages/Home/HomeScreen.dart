@@ -20,10 +20,6 @@ class Homescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Future.microtask(() {
-    //   Provider.of<Homescreenprovider>(context, listen: false)
-    //       .initializeCounter();
-    // });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: ListView(
@@ -122,6 +118,31 @@ class Homescreen extends StatelessWidget {
                                         .toList(),
                                   );
                                 }));
+
+                                // Navigator.push(
+                                //     context,
+                                //     PageRouteBuilder(
+                                //         transitionDuration:
+                                //             const Duration(milliseconds: 500),
+                                //         reverseTransitionDuration:
+                                //             const Duration(milliseconds: 500),
+                                //         pageBuilder: (BuildContext context,
+                                //             Animation<double> animation,
+                                //             Animation<double>
+                                //                 secondaryAnimation) {
+                                //           return FadeTransition(
+                                //               opacity: animation,
+                                //               child: Productdetails(
+                                //                 product: item,
+                                //                 size: item.productSizes
+                                //                     .map((size) => button(
+                                //                         name: size.sizeName,
+                                //                         price: size.price
+                                //                             .toString(),
+                                //                         id: size.id))
+                                //                     .toList(),
+                                //               ));
+                                //         }));
                               },
                               child: Row(
                                 children: [
@@ -158,14 +179,7 @@ class Homescreen extends StatelessWidget {
                         children: [
                           GestureDetector(
                             onTap: () async {
-                              List<Favouritemodel> fav = [];
-                              bool isfav = false;
-                              fav = await getfavourites();
-                              for (int i = 0; i < fav.length; i++) {
-                                if (fav[i].productId == item.id) {
-                                  isfav = true;
-                                }
-                              }
+                              homeprovider.pushbutton(context, item);
                               Navigator.push(context, CupertinoPageRoute(
                                   builder: (BuildContext context) {
                                 return Productdetails(
@@ -178,6 +192,8 @@ class Homescreen extends StatelessWidget {
                                       .toList(),
                                 );
                               }));
+
+                              print(item.name);
                             },
                             child: Choosetype(
                               item: item,
